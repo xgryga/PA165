@@ -10,7 +10,11 @@ import javax.persistence.Persistence;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import cz.fi.muni.pa165.entity.Category;
+import cz.fi.muni.pa165.entity.Color;
 import cz.fi.muni.pa165.entity.Product;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import javax.persistence.PersistenceException;
 
 public class MainJavaSe {
 	private static EntityManagerFactory emf;
@@ -22,7 +26,8 @@ public class MainJavaSe {
 		emf = Persistence.createEntityManagerFactory("default");
 		try {
 			// BEGIN YOUR CODE
-			task04();
+			//task04();
+                        task08();
 			// END YOUR CODE
 		} finally {
 			emf.close();
@@ -36,10 +41,20 @@ public class MainJavaSe {
 		// You must first obtain the Entity manager
 		// Then you have to start transaction using getTransaction().begin()
 		// Then use persist() to persist both of the categories and finally commit the transaction
-
 		// The code below is just testing code. Do not modify it
+                Category electronics = new Category();
+                electronics.setName("Electronics");
+                Category musical = new Category();
+                musical.setName("Musical");
 		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
+                em.getTransaction().begin();
+                em.persist(electronics);
+                em.persist(musical);
+                em.getTransaction().commit();
+                em.close();
+                
+                em = emf.createEntityManager();
+                em.getTransaction().begin();
 		List<Category> categories = em.createQuery(
 				"select c from Category c order by c.name", Category.class)
 				.getResultList();
@@ -68,6 +83,13 @@ public class MainJavaSe {
 		// TODO under this line. create new EM and start new transaction. Merge
 		// the detached category
 		// into the context and change the name to "Electro"
+                
+                em = emf.createEntityManager();
+		em.getTransaction().begin();
+                category.setName("Electro");
+                em.merge(category);
+                em.getTransaction().commit();
+                em.close();
 
 
 		// The code below is just testing code. Do not modify it
@@ -95,15 +117,25 @@ public class MainJavaSe {
 		//
 		// To test your code uncomment the commented code at the end of this method.
 
+                Product product = new Product();
+                product.setName("Guitar");
+                product.setColor(Color.BLACK);
+                product.setAddedDate(new GregorianCalendar(2011,00,20).getTime());
+                
+                EntityManager em = emf.createEntityManager();
+                em.getTransaction().begin();
+                em.persist(product);
+                em.getTransaction().commit();
+                em.close();
 
-		EntityManager em = emf.createEntityManager();
+		em = emf.createEntityManager();
 		em.getTransaction().begin();
 		Product p = em.createQuery("select p from Product p", Product.class)
 				.getSingleResult();
 		em.getTransaction().commit();
 		em.close();
 
-	/** TODO Uncomment the following test code after you are finished!
+	/** TODO Uncomment the following test code after you are finished! */
 	 
 		assertEq(p.getName(), "Guitar");
 		Calendar cal = Calendar.getInstance();
@@ -137,7 +169,7 @@ public class MainJavaSe {
 	
 
 		System.out.println("Task6 ok!");
-		*/
+		
 	}
 	
 	private static void task08() {
@@ -149,7 +181,7 @@ public class MainJavaSe {
 		//TODO after you implement equals nad hashCode, you can uncomment the code below. It will try
 		// to check whether you are doing everything correctly. 
 	
-/* TODO uncomment the following (it should work if you were successfull with task08)
+/* TODO uncomment the following (it should work if you were successfull with task08) */
 
 
 		class MockProduct extends Product {
@@ -187,7 +219,7 @@ public class MainJavaSe {
 		if (mp.getNameCalled){
 			System.out.println("CORRECT");
 		} else System.out.println("INCORRECT!");
-		 */
+		 
 	
 	}
 
