@@ -24,4 +24,6 @@ public class MainJavaConfig {
         BigDecimal converted = currConvertor.convert(Currency.getInstance("EUR"), Currency.getInstance("CZK"), BigDecimal.ONE);
         System.out.println(converted);
     }
+    
+    
 }

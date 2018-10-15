@@ -14,7 +14,7 @@ import org.aspectj.lang.annotation.Before;
  *
  * @author lukegryga
  */
-@Aspect
+//@Aspect
 public class LoggingAspect {
     
     @After("execution(* *.*(..))")
