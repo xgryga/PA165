@@ -8,16 +8,15 @@ package cz.muni.fi.pa165;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 
 /**
  *
  * @author lukegryga
  */
-//@Aspect
+@Aspect
 public class LoggingAspect {
     
-    @After("execution(* *.*(..))")
+    @After("execution(* cz.muni.fi.pa165.currency.*(..))")
     public void logBefore(JoinPoint joinPoint) {
 
 		System.out.println("logged before: " + joinPoint.getSignature().getName());

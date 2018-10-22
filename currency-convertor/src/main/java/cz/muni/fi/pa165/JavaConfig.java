@@ -24,7 +24,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  */
 @Configuration
 @EnableAspectJAutoProxy
-@Aspect
+//@Aspect
 public class JavaConfig {
     
 //    @Bean
@@ -42,7 +42,7 @@ public class JavaConfig {
         return new CurrencyConvertorImpl(exchangeRateTable());
     }
     
-    @Around("execution(* *.*(..))")
+    @Around("execution(* cz.muni.fi.pa165.currency.*(..))")
     public Object profile(ProceedingJoinPoint pjp) throws Throwable {
             long start = System.nanoTime();
             System.out.println("Enering: " + pjp.getSignature().getName());
