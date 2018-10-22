@@ -1,6 +1,7 @@
 package cz.fi.muni.pa165.tasks;
 
 import cz.fi.muni.pa165.dto.Color;
+import org.springframework.stereotype.Component;
 
 public class ColorCount {
 	private Color color;
